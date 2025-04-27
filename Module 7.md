@@ -17,35 +17,31 @@ Else
 Program:
 ```
 #include <stdio.h>
-struct eligible {
+struct Person {
     int age;
-    char n[100];
-};
+    char name[50];
+}per;
 
 int main() {
-    struct eligible e;
-
-    printf("Enter name: ");
-    scanf("%s", e.n);
-    printf("Enter age: ");
-    scanf("%d", &e.age);
-
-    if (e.age <= 6) {
-        printf("Vaccine Eligibility: No\n");
+    scanf("%d %s",&per.age,per.name);
+    
+    printf("Age:%d\n",per.age);
+    printf("Name:%svaccine:%d\n",per.name,per.age);
+    if (per.age <= 18) {
+        printf("eligibility:no\n");
     } else {
-        printf("Vaccine Eligibility: Yes\n");
+        printf("eligibility:yes\n");
     }
-    printf("Details:\nAge: %d\nName: %s\n", e.age, e.n);
+    
     return 0;
 }
+
 
 ```
 
 Output:
 
-![image](https://github.com/user-attachments/assets/0a184676-b979-4d84-8096-1647ee41ba3b)
-
-
+![image](https://github.com/user-attachments/assets/8d2c42ed-8f96-4972-8862-d0bcb49c0f62)
 
 Result:
 Thus, the program is verified successfully. 
@@ -125,30 +121,32 @@ Use scanf to input the file name into the name array.
 Program:
 ```
 #include <stdio.h>
-#include <stdlib.h>
+
 int main() {
-    FILE *p;
-    char name[100];
+    char filename[50]; 
+    FILE *file;
 
-    scanf("%s", name);
-    p = fopen(name, "w");
+    scanf("%s", filename);
+    file = fopen(filename, "w");
 
-    if (p == NULL) {
-        printf("Error\n");
+    if (file == NULL) {
+        printf("Error creating file!\n");
         return 1;
     }
 
-    printf("File opened successfully.\n");
+    printf("%s File Created Successfully\n", filename);
+    printf("%s File Opened\n", filename);
 
-    fclose(p);
-    printf("File closed.\n");
+    fclose(file);
+    printf("%s File Closed\n", filename);
 
     return 0;
 }
+
 ```
 Output:
 
-![image](https://github.com/user-attachments/assets/e54c95c8-b6b7-4e23-aa15-4f7d312899ff)
+![image](https://github.com/user-attachments/assets/6dac212d-f5ef-44a8-98b9-90ff6b41b077)
 
 Result:
 Thus, the program is verified successfully
@@ -178,32 +176,32 @@ Use scanf to input the file name into the name array and the number of strings i
 Program:
 ```
 #include <stdio.h>
-#include <stdlib.h>
-
 int main() {
-    FILE *p;
-    char name[100], text[100];
-    int num;
-    scanf("%s", name);
-    scanf("%d", &num);
+    char filename[50]; 
+    FILE *file;
+    int n;
+    char text[100];
 
-    p = fopen(name, "w");
-    if (p == NULL) {
-        printf("Error: Could not open the file.\n");
+    scanf("%s", filename);
+
+    file = fopen(filename, "w");
+
+    if (file == NULL) {
+        printf("Error creating file!\n");
         return 1;
     }
 
-    printf("File opened successfully.\n");
+    printf("%s Opened\n", filename);
+    scanf("%d", &n);
 
-    for (int i = 0; i < num; i++) {
-        printf("Enter string %d: ", i + 1);
-        scanf(" %[^\n]", text); 
-        fputs(text, p);
-        fputs("\n", p);
+    for (int i = 0; i < n; i++) {
+        
+        scanf("%s", text);  
+        fprintf(file, "%s\n", text);  
     }
 
-    fclose(p);
-    printf("Data added successfully.\n");
+    printf("Data added Successfully\n");
+    fclose(file);
 
     return 0;
 }
@@ -211,7 +209,7 @@ int main() {
 ```
 Output:
 
-![image](https://github.com/user-attachments/assets/98b9e863-e8d5-4dc6-bcc1-8857be2e5092)
+![image](https://github.com/user-attachments/assets/9aedfba9-1552-4e05-b0af-a829ec48a691)
 
 Result:
 Thus, the program is verified successfully
@@ -253,44 +251,38 @@ Algorithm:
 Program:
 ```
 #include <stdio.h>
-#include <stdlib.h>
-struct Subject {
-    char name[100];
-    int marks;
-};
 int main() {
-    int n;
-    struct Subject *s;
-    scanf("%d", &n);
+    char filename[50];  
+    FILE *file;
+    int n, roll;
+    char name[50], address[100];
 
-    s = (struct Subject *)malloc(n * sizeof(struct Subject));
-
-    if (s == NULL) {
-        printf("Error\n");
+   
+    scanf("%s", filename);
+    file = fopen(filename, "w");
+    if (file == NULL) {
+        printf("Error creating file!\n");
         return 1;
     }
 
+    printf("%s Opened\n", filename);
+
+    scanf("%d", &n);
     for (int i = 0; i < n; i++) {
-        printf("Enter name of subject %d: ", i + 1);
-        scanf(" %[^\n]", s[i].name);
-        printf("Enter marks for subject %d: ", i + 1);
-        scanf("%d", &s[i].marks);
+        scanf("%d %s %s", &roll, name, address);
+        fprintf(file, "%d %s %s\n", roll, name, address);  
     }
 
-    printf("\nSubject Details:\n");
-    for (int i = 0; i < n; i++) {
-        printf("Subject %d: %s - Marks: %d\n", i + 1, s[i].name, s[i].marks);
-    }
-
-    free(s);
+    printf("Data added Successfully\n");
+    fclose(file);
 
     return 0;
 }
+
 ```
 Output:
 
-![image](https://github.com/user-attachments/assets/73919189-8d8c-4736-ab93-57b8e9b0f1e9)
-
+![image](https://github.com/user-attachments/assets/3fc7e38e-a39f-49a8-b2ed-01af40892c5c)
 
 Result:
 Thus, the program is verified successfully
